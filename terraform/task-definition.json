@@ -1,0 +1,67 @@
+[
+  {
+    "environment": [
+      {
+        "name": "SERVICE_NAME",
+        "value": "${service_name}"
+      },
+      {
+        "name": "SERVICE_CHECK_HTTP",
+        "value": "/${service_name}/health"
+      },
+      {
+        "name": "SERVICE_CHECK_INTERVAL",
+        "value": "10s"
+      },
+      {
+        "name": "SERVICE_TAGS",
+        "value": "http"
+      },
+      {
+        "name": "POSTGRES_DB",
+        "value": "${db_name}"
+      },
+      {
+        "name": "POSTGRES_PASSWORD",
+        "value": "${db_password}"
+      },
+      {
+        "name": "POSTGRES_USER",
+        "value": "${db_user}"
+      },
+      {
+        "name": "POSTGRES_HOST",
+        "value": "${db_address}"
+      },
+      {
+	"name": "CONFIG_PASSWORD",
+        "value": "GaMmAt-CoNfIg"
+      },
+      {
+        "name": "CONFIG_USER",
+        "value": "user"
+      }
+    ],
+    "cpu": 256,
+    "essential": true,
+    "image": "${image_url}",
+    "memoryReservation": 256,
+    "name": "${container_name}",
+    "portMappings": [
+      {
+        "containerPort": ${container_port}
+      }
+    ],
+    "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "${log_group_name}",
+            "awslogs-region": "${log_group_region}",
+            "awslogs-stream-prefix": "${log_group_name}"
+        }
+    },
+    "dockerLabels": {
+    	"app": "${container_name}"
+    }
+  }
+]

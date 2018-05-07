@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        preferIpAddress: true
+    config:
+      discovery:
+        enabled: true
+        serviceId: config-server
+      fail-fast: true
+      password:  ${CONFIG_PASSWORD}
+      username: ${CONFIG_USER}
+    service-registry:
+      enabled: false
+      auto-registration.enabled: false
+---
+spring:
+ profiles: local,dev,isolated
+ cloud:
+   consul:
+     enabled: false
+     config.enabled: false
+   config:
+     enabled: false
+     discovery.enabled: false

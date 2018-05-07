@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: microservice
+---
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: none
+  multitenancy:
+    datasources:
+      - id: 1 #Tenant1
+        url: jdbc:h2:mem:tenant1
+        username: sa
+        password:
+       # driver-class-name: com.mysql.jdbc.Driver
+      - id: 2 #Tenant2
+        url: jdbc:h2:mem:tenant2
+        username: sa
+        password:
+       # driver-class-name: com.mysql.jdbc.Driver
+      - id: 3 #Tenant3
+        url: jdbc:h2:mem:tenant3
+        username: sa
+        password:
+       # driver-class-name: com.mysql.jdbc.Driver
+      - id: 4 #Tenant4
+        url: jdbc:h2:mem:tenant4
+        username: sa
+        password:
+       # driver-class-name: com.mysql.jdbc.Driver
+security:
+  oauth2:
+    client: #todo pasar a .env
+      clientId: gammat-ui
+      clientSecret: gammat-ui-secret
+      accessTokenUri: http://localhost:9999/uaa/oauth/token
+      userAuthorizationUri: http://localhost:9999/uaa/oauth/authorize
+    resource:
+      jwt:
+        keyValue: |
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApWgdT5SIMEoRwsKbxrIS
+          w8NsROeri5zqUAUXx3haXtLqsgep6o9+j1yJ2OhwIjKqDgjUimeKgTPFCYawK8Tn
+          aAYq7EDjGVWzP5W86+7DIkADQMBm4X5PU13YG1RUoSFI+niX19c43spGwhGIBxFg
+          3gqtr/FQbTXO4MUcvmpu36egftC234mPNvTxy/mYFI8UHvhXxC/iChhd7sR5/MsL
+          cI8jb9gvQFoYaIhoI/6YveSTjfx60iSthWWMInvU5JWyCNLXlq/drsp5xj58/YXC
+          rzF7gdwZlC3NGm/4GJfbiZRk7ELTHtaCxuOq9lWYqcXXMFe0JwMZPEXaICWAvd+d
+          ewIDAQAB
+          -----END PUBLIC KEY-----
+
+server:
+  port: 8001
+  context-path: /microservice
+---
+spring:
+  profiles: isolated
+  multitenancy:
+    datasources:
+      - id: 1 #Tenant1
+        url: jdbc:h2:mem:tenant1
+        username: sa
+        password:
+security:
+  ignored: /**
+server:
+  port: 8080
+  context-path: /microservice
